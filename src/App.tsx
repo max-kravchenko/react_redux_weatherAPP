@@ -19,6 +19,8 @@ function App() {
     WeatherService.getCurrentWeather(city).then(weather => dispatch(weatherSlice.actions.set([weather])));
   }, []);
 
+  console.log([weather]);
+
   return (
     <div className="App">
       <div>
