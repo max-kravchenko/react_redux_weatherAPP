@@ -4,14 +4,12 @@ import { WeatherService } from '../services/WeatherService';
 
 export const fetchCurrentWeather = (payload: string) => async (dispatch: AppDispatch) => {
   try {
-    dispatch(weatherSlice.actions.fetchCurrentWeather());
     const res = await WeatherService.getCurrentWeather(payload);
 
-    if(res.status === 200) {
-      dispatch(weatherSlice.actions.fetchCurrentWeatherSucces(res));
-    } else {
-      dispatch(weatherSlice.actions.fetchCurrentWeatherError(res));
-    }
+    if(res) {
+      dispatch(weatherSlice.actions.add(res));
+    } 
+    
   } catch (error) {
     console.log(error);
   }
