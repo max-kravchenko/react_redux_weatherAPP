@@ -12,11 +12,17 @@ const initialState: currentWeather = {
   weather: [{
     main: {
       temp: 0,
+      feels_like: 0,
+      humidity: 0,
+      pressure: 0,
     },
     sys: {
       country: '',
     },
     name: '',
+    wind: {
+      speed: 0,
+    },
     weather: [{
       id: 0,
       main: '',
