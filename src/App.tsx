@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useCustomDispatch, useCustomSelector } from './hooks/store';
 import { selectCurrentWeatherData } from './selectors/selector';
-import { fetchCurrentWeather } from './thunks/fetchCurrentWeather';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { WeatherList } from './components/WeatherList/WeatherList';
 import { weatherSlice } from './features/weatherSlice';
-import { Weather } from './types/types';
 import { WeatherService } from './services/WeatherService';
 
 

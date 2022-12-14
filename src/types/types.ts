@@ -1,4 +1,5 @@
 export type Weather = {
+  [key: string]: any,
   main: {
     temp: number;
   },
