@@ -22,6 +22,9 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
 
   return (
     <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       component='form'
       noValidate
       autoComplete="off"
@@ -37,8 +40,22 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
         placeholder='Choose a city'
         value={city}
         onChange={(event) => setCity(event.currentTarget.value)} />
-      <Button onClick={handleSubmit}>
+      <Button 
+        onClick={handleSubmit}
+        color="success"
+        size='large'
+        
+      >
         Show weather
+      </Button>
+      <Button 
+        onClick={() => {
+          dispatch(weatherSlice.actions.clear());
+        }}
+        color='error'
+        size='small'
+      >
+        Clear selections
       </Button>
     </Box>
   );
