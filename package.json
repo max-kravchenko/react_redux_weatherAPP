@@ -1,5 +1,6 @@
 {
   "homepage": "https://max-kravchenko.github.io/react_redux_weatherAPP",
+  "proxy": "http://localhost:3000/react_redux_weatherAPP/",
   "name": "react_weather_app",
   "version": "0.1.0",
   "private": true,

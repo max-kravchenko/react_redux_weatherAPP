@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { HashRouter } from 'react-router-dom';
+
+
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -14,13 +17,13 @@ const root = createRoot(container);
 const persistor = persistStore(store);
 
 root.render(
-  <React.StrictMode>
+  <HashRouter>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </HashRouter>
 );
 
 reportWebVitals();

@@ -1,34 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import { useCustomDispatch, useCustomSelector } from './hooks/store';
-import { selectCurrentWeatherData } from './selectors/selector';
-import { WeatherList } from './components/WeatherList/WeatherList';
-import { weatherSlice } from './features/weatherSlice';
-import { WeatherService } from './services/WeatherService';
-import { Form } from './components/Form';
+import { Routes, Route } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
+import { CityWeatherPage } from './pages/CityWeatherPage';
 
 
 function App() {
-  const [city, setCity] = useState<string>('');
-
-  const { weather, isLoading, error } = useCustomSelector(selectCurrentWeatherData);
-
-  const dispatch = useCustomDispatch();
-
-  useEffect(() => {
-    WeatherService.getCurrentWeather(city).then(weather => dispatch(weatherSlice.actions.set([weather])));
-  }, []);
-
-  console.log([weather]);
-
   return (
-    <div className="App">
-      <div>
-        <h1>Weather App</h1>
-        <Form city={city} setCity={setCity}/>
-      </div>
+    <div>
+      <Routes>
+        <Route path="/" element={<HomePage />}/>
 
-      <WeatherList cities={weather} />
+        <Route path='/:cityName' element={<CityWeatherPage/>}/>
+      </Routes>
     </div>
   );
 }

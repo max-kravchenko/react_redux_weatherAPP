@@ -9,7 +9,7 @@ interface Props {
   city: string,
   setCity: (cityName: string) => void,
 }
-export const Form = React.memo(function Form({ city, setCity } : Props) {
+export const SearchForm = React.memo(function SearchForm({ city, setCity } : Props) {
 
   const dispatch = useCustomDispatch();
 
