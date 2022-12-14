@@ -1,20 +1,15 @@
 import { createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
 import { Weather } from '../types/types';
 
 type currentWeather = {
-  weather: Weather,
+  weather: Weather[],
   isLoading: boolean,
-  response: Response,
+  error: string,
 };
 
-type Response = {
-  status: number,
-  message: string,
-};
 
 const initialState: currentWeather = {
-  weather: {
+  weather: [{
     main: {
       temp: 0,
     },
@@ -28,37 +23,38 @@ const initialState: currentWeather = {
       description: '',
       icon: '',
     }]
-  },
+  }],
   isLoading: false,
-  response: {
-    status: 0,
-    message: '',
-  },
+  error: '',
 };
 
 export const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    fetchCurrentWeather(state) {
-      state.isLoading = true;
+    set: (state, action: PayloadAction<Weather[]>) => {
+      state.weather = action.payload;
     },
-    fetchCurrentWeatherSucces(state, action: PayloadAction<AxiosResponse<Weather>>) {
-      state.weather = action.payload.data;
-      state.isLoading = false;
-      state.response = {
-        status: action.payload.status,
-        message: action.payload.statusText,
-      };
+    add: (state, action: PayloadAction<Weather>) => {
+      state.weather.push(action.payload);
     },
-    fetchCurrentWeatherError(state, action: PayloadAction<AxiosResponse<Weather>>) {
-      state.isLoading = false;
-      state.response = {
-        status: action.payload.status,
-        message: action.payload.statusText,
-      };
-    }
+    remove: (state, action: PayloadAction<string>) => {
+      state.weather = state.weather.filter(weather => weather.name !== action.payload); 
+    },
+    update: (state, action: PayloadAction<Weather>) => {
+      const index = state.weather.findIndex(weather => weather.name !== action.payload.name); 
+
+      const newArray = [...state.weather];
+     
+      newArray[index] = action.payload;
+
+      state.weather = newArray;
+    },
+    clear: (state) => {
+      state.weather = [];
+    },
   }
 });
 
 export default weatherSlice.reducer;
+export const { actions } = weatherSlice;

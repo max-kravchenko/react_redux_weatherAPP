@@ -7,9 +7,12 @@ interface Props {
 }
 
 export const WeatherList = ({ cities } : Props) => {
+
+  console.log('cities', cities);
+
   return (
     <section>
-      {cities.map(weather => (
+      {cities.slice(1).map(weather => (
         <WeatherCard weather={weather} key={weather.weather[0].id}/>
       ))}
     </section>

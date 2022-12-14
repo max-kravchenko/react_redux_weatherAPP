@@ -6,6 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useCustomDispatch } from '../../hooks/store';
+import { weatherSlice } from '../../features/weatherSlice';
+import { WeatherService } from '../../services/WeatherService';
 
 
 interface Props {
@@ -13,6 +16,9 @@ interface Props {
 }
 
 export const WeatherCard = ({weather} : Props) => {
+
+  const dispatch = useCustomDispatch();
+  
   const time = new Date().toLocaleString();
   
   return(
@@ -37,6 +43,27 @@ export const WeatherCard = ({weather} : Props) => {
           Time: {time}
         </Typography>
       </CardContent>
+      <CardActions>
+        <Button 
+          size="small" 
+          onClick={async () => {
+            const weatherCity = await WeatherService.getCurrentWeather(weather.name);
+            const { data } = weatherCity;
+            dispatch(weatherSlice.actions.update(data));
+          }}
+        >
+          Refresh
+        </Button>
+        <Button size="small">Learn more</Button>
+        <Button 
+          size="small"
+          onClick={async () => {
+            dispatch(weatherSlice.actions.remove(weather.name));
+          }}
+        >
+            Remove
+        </Button>
+      </CardActions>
     </Card>
   );
 

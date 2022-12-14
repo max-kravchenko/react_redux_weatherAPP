@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { WeatherCard } from './components/WeatherCard';
 import { useCustomDispatch, useCustomSelector } from './hooks/store';
 import { selectCurrentWeatherData } from './selectors/selector';
 import { fetchCurrentWeather } from './thunks/fetchCurrentWeather';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Weather } from './types/types';
 import { WeatherList } from './components/WeatherList/WeatherList';
+import { weatherSlice } from './features/weatherSlice';
+import { Weather } from './types/types';
+import { WeatherService } from './services/WeatherService';
 
 
 function App() {
-  const [city, setCity] = useState<string>('Kyiv');
+  const [city, setCity] = useState<string>('');
 
-  const [cities, setCities] = useState<Weather[]>([]);
+  const { weather, isLoading, error } = useCustomSelector(selectCurrentWeatherData);
 
-  const { weather } = useCustomSelector(selectCurrentWeatherData);
- 
   const dispatch = useCustomDispatch();
 
   useEffect(() => {
-    dispatch(fetchCurrentWeather(city));
+    WeatherService.getCurrentWeather(city).then(weather => dispatch(weatherSlice.actions.set([weather])));
   }, []);
-
-  console.log(cities);
 
   return (
     <div className="App">
@@ -36,19 +33,16 @@ function App() {
           onChange={(event) => setCity(event.currentTarget.value)}
         />
         <Button onClick={async () => {
-          setCities((prevCities: any) => {
-            return [
-              ...prevCities,
-              weather,
-            ];
-          });
-          dispatch(fetchCurrentWeather(city));
+          const weatherCity = await WeatherService.getCurrentWeather(city);
+          const { data } = weatherCity;
+          dispatch(weatherSlice.actions.add(data));
+          setCity('');
         } }>
           Show weather
         </Button>
       </div>
 
-      <WeatherList cities={cities} />
+      <WeatherList cities={weather} />
     </div>
   );
 }
