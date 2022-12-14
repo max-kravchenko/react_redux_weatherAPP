@@ -15,7 +15,7 @@ interface Props {
   weather: Weather;
 }
 
-export const WeatherCard = ({weather} : Props) => {
+export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
 
   const dispatch = useCustomDispatch();
   
@@ -66,5 +66,4 @@ export const WeatherCard = ({weather} : Props) => {
       </CardActions>
     </Card>
   );
-
-};
+});

@@ -42,7 +42,7 @@ export const weatherSlice = createSlice({
       state.weather = state.weather.filter(weather => weather.name !== action.payload); 
     },
     update: (state, action: PayloadAction<Weather>) => {
-      const index = state.weather.findIndex(weather => weather.name !== action.payload.name); 
+      const index = state.weather.findIndex(weather => weather.name === action.payload.name); 
 
       const newArray = [...state.weather];
      
