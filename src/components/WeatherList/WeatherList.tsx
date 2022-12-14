@@ -6,10 +6,7 @@ interface Props {
   cities: Weather[];
 }
 
-export const WeatherList = ({ cities } : Props) => {
-
-  console.log('cities', cities);
-
+export const WeatherList = React.memo(function WeatherList({ cities } : Props) {
   return (
     <section>
       {cities.slice(1).map(weather => (
@@ -17,4 +14,4 @@ export const WeatherList = ({ cities } : Props) => {
       ))}
     </section>
   );
-};
+}); 
