@@ -56,6 +56,14 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
     }
   };
 
+  const handleCityEnter = (
+    event: { currentTarget: { value: string; }}
+  ) => setCity(event.currentTarget.value);
+
+  const hanleSelectionClear = () => {
+    dispatch(weatherSlice.actions.clear());
+  };
+
   return (
     <Box>
       <Box
@@ -65,18 +73,19 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
         component='form'
         noValidate
         autoComplete="off"
-        onSubmit={async (event: {
-        preventDefault: () => void;
-      }) => {
+        onSubmit={async (event: {preventDefault: () => void}
+        ) => {
           event.preventDefault();
           handleSubmit();
-        } }
+        }}
       >
         <TextField
+          inputProps={{ 'data-testid': 'content-input' }}
           type="text"
           placeholder='Choose a city'
           value={city}
-          onChange={(event) => setCity(event.currentTarget.value)} />
+          onChange={handleCityEnter} 
+        />
         <Button
           onClick={handleSubmit}
           color="success"
@@ -86,15 +95,14 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
         Show weather
         </Button>
         <Button
-          onClick={() => {
-            dispatch(weatherSlice.actions.clear());
-          } }
+          onClick={hanleSelectionClear}
           color='error'
           size='small'
         >
         Clear selections
         </Button>
       </Box>
+
       {errorCity && (<Alert variant="filled" severity="warning">
         This city is already on the list. No need to add it twice
       </Alert>)}
@@ -102,6 +110,7 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
       {emptyCityErr && (<Alert variant="filled" severity="warning">
         Go on, type some letters.
       </Alert>)}
+
       {error && (<Alert variant="filled" severity="warning">
         Enter correct city name
       </Alert>)}
