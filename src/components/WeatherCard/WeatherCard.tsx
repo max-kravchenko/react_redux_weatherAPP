@@ -43,6 +43,16 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
   if (isLoading) {
     return (<CircularProgress color="success" />);
   }
+
+  const handleWeatherRefresh = async () => {
+    const weatherCity = await WeatherService.getCurrentWeather(weather.name);
+    const { data } = weatherCity;
+    dispatch(weatherSlice.actions.update(data));
+  };
+
+  const handleCardRemoval = async () => {
+    dispatch(weatherSlice.actions.remove(weather.name));
+  };
   
   return(
     <Card sx={{ maxWidth: 300 }}>
@@ -51,6 +61,7 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
         to={`../${weather.name}`}
         end
       >
+
         <CardHeader
           avatar={
             <Avatar aria-label="weather">
@@ -64,16 +75,19 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
           title={`Weather in ${weather.name}`}
           subheader={time}
         />
+
         <CardContent>
           <Box 
             display="flex"
             justifyContent="center"
             alignItems="center"
           >
+
             <Typography gutterBottom variant="h3" component="div">
               {Math.floor(weather.main.temp)}°C
             </Typography>
           </Box>
+
           <Box
             display="flex"
             justifyContent="center"
@@ -83,6 +97,7 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
               {weather.weather[0].main}
             </Typography>
           </Box>
+
           <Box
             display="flex"
             justifyContent="center"
@@ -102,20 +117,14 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
           <Button 
             size="small" 
             color="success"
-            onClick={async () => {
-              const weatherCity = await WeatherService.getCurrentWeather(weather.name);
-              const { data } = weatherCity;
-              dispatch(weatherSlice.actions.update(data));
-            }}
+            onClick={handleWeatherRefresh}
           >
           Refresh
           </Button>
           <Button 
             color="error"
             size="small"
-            onClick={async () => {
-              dispatch(weatherSlice.actions.remove(weather.name));
-            }}
+            onClick={handleCardRemoval}
           >
             Remove
           </Button>
