@@ -8,7 +8,7 @@ import { Container } from '@mui/material';
 
 function App() {
   return (
-    <Container style={{ backgroundColor: 'lightskyblue', height: '100vh'}}>
+    <Container>
       <Routes>
         <Route path="/" element={<HomePage />}/>
 

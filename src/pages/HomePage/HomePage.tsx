@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 export const HomePage = React.memo(function HomePage() {
   const [city, setCity] = useState<string>('');
 
-  const { weather, isLoading, error } = useCustomSelector(selectCurrentWeatherData);
+  const { weather } = useCustomSelector(selectCurrentWeatherData);
 
   return (
     <Container>
@@ -30,7 +30,7 @@ export const HomePage = React.memo(function HomePage() {
         alignItems="center"
         paddingBottom={4}
       >
-        <SearchForm city={city} setCity={setCity}/>
+        <SearchForm city={city} setCity={setCity} />
       </Box>
       <WeatherList cities={weather} />
     </Container>
