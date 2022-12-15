@@ -7,7 +7,6 @@ type currentWeather = {
   error: string,
 };
 
-
 const initialState: currentWeather = {
   weather: [{
     main: {
@@ -81,7 +80,13 @@ export const weatherSlice = createSlice({
         icon: '',
       }]}];
     },
-  }
+    setLoad: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+    },
+  },
 });
 
 export default weatherSlice.reducer;

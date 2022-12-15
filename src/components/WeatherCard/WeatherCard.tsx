@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Weather } from '../../types/types';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -6,13 +6,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useCustomDispatch } from '../../hooks/store';
+import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { weatherSlice } from '../../features/weatherSlice';
 import { WeatherService } from '../../services/WeatherService';
 import { NavLink } from 'react-router-dom';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { selectCurrentWeatherData } from '../../selectors/selector';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface Props {
   weather: Weather;
@@ -21,8 +23,26 @@ interface Props {
 export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
 
   const dispatch = useCustomDispatch();
+
+  const { isLoading } = useCustomSelector(selectCurrentWeatherData);
   
   const time = new Date().toLocaleString();
+
+  useEffect(() => {
+    try {
+      dispatch(weatherSlice.actions.setLoad(true));
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      dispatch(weatherSlice.actions.setError(''));
+      dispatch(weatherSlice.actions.setLoad(false));
+    }
+  }, []);
+
+  if (isLoading) {
+    return (<CircularProgress color="success" />);
+  }
   
   return(
     <Card sx={{ maxWidth: 300 }}>

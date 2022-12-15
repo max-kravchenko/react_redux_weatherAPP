@@ -8,9 +8,7 @@ export const CityWeatherPage = React.memo(function CityCityWeatherPage() {
 
   const currentCity = window.location.hash.split('/')[1];
 
-  console.log(currentCity);
-
-  const { weather, isLoading, error } = useCustomSelector(selectCurrentWeatherData);
+  const { weather } = useCustomSelector(selectCurrentWeatherData);
 
   const filteredWeather = weather.filter((city) => city.name === currentCity.split('%20').join(' '));
   
