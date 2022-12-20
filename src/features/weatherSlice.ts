@@ -7,30 +7,36 @@ type currentWeather = {
   error: string,
 };
 
+// const initialState: currentWeather = {
+//   weather: [{
+//     main: {
+//       temp: 0,
+//       feels_like: 0,
+//       humidity: 0,
+//       pressure: 0,
+//       temp_max: 0,
+//       temp_min: 0,
+//     },
+//     sys: {
+//       country: '',
+//     },
+//     name: '',
+//     wind: {
+//       speed: 0,
+//     },
+//     weather: [{
+//       id: 0,
+//       main: '',
+//       description: '',
+//       icon: '',
+//     }]
+//   }],
+//   isLoading: false,
+//   error: '',
+// };
+
 const initialState: currentWeather = {
-  weather: [{
-    main: {
-      temp: 0,
-      feels_like: 0,
-      humidity: 0,
-      pressure: 0,
-      temp_max: 0,
-      temp_min: 0,
-    },
-    sys: {
-      country: '',
-    },
-    name: '',
-    wind: {
-      speed: 0,
-    },
-    weather: [{
-      id: 0,
-      main: '',
-      description: '',
-      icon: '',
-    }]
-  }],
+  weather: [],
   isLoading: false,
   error: '',
 };
@@ -58,27 +64,7 @@ export const weatherSlice = createSlice({
       state.weather = newArray;
     },
     clear: (state) => {
-      state.weather = [{main: {
-        temp: 0,
-        feels_like: 0,
-        humidity: 0,
-        pressure: 0,
-        temp_max: 0,
-        temp_min: 0,
-      },
-      sys: {
-        country: '',
-      },
-      name: '',
-      wind: {
-        speed: 0,
-      },
-      weather: [{
-        id: 0,
-        main: '',
-        description: '',
-        icon: '',
-      }]}];
+      state.weather = [];
     },
     setLoad: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

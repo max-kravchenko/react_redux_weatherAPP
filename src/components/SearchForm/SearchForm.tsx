@@ -2,10 +2,10 @@ import { TextField, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { weatherSlice } from '../../features/weatherSlice';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
-import { WeatherService } from '../../services/WeatherService';
 import Box from '@mui/material/Box';
 import { selectCurrentWeatherData } from '../../selectors/selector';
 import Alert from '@mui/material/Alert';
+import { fetchCurrentWeather } from '../../thunks/fetchCurrentWeather';
 
 interface Props {
   city: string,
@@ -42,12 +42,11 @@ export const SearchForm = React.memo(function SearchForm({ city, setCity } : Pro
 
     try {
       dispatch(weatherSlice.actions.setLoad(true));
-      const weatherCity = await WeatherService.getCurrentWeather(city);
-      const { data } = weatherCity;
-      dispatch(weatherSlice.actions.add(data));
+      dispatch(fetchCurrentWeather(city));
       setCity('');
       setErrorCity(false);
       dispatch(weatherSlice.actions.setError(''));
+      dispatch(weatherSlice.actions.setLoad(true));
     } catch (error: any) {
       dispatch(weatherSlice.actions.setError(error));
     }

@@ -10,8 +10,8 @@ interface Props {
 export const WeatherList = React.memo(function WeatherList({ cities } : Props) {
   return (
     <Grid container spacing={4}>
-      {cities.slice(1).map(weather => (
-        <Grid item xs={12} sm={6} md={3} key={weather.weather[0].id + Math.random()}>
+      {cities.map(weather => (
+        <Grid item xs={12} sm={6} md={3} key={weather.weather[0].id + Math.random()} data-testid='grid'>
           <WeatherCard weather={weather} key={weather.weather[0].id}/>
         </Grid>
       ))}

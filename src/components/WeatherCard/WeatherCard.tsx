@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { Weather } from '../../types/types';
 import Card from '@mui/material/Card';
@@ -40,19 +41,26 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
     }
   }, []);
 
-  if (isLoading) {
-    return (<CircularProgress color="success" />);
-  }
-
   const handleWeatherRefresh = async () => {
-    const weatherCity = await WeatherService.getCurrentWeather(weather.name);
-    const { data } = weatherCity;
-    dispatch(weatherSlice.actions.update(data));
+    try {
+      const weatherCity = await WeatherService.getCurrentWeather(weather.name);
+      const { data } = weatherCity;
+      dispatch(weatherSlice.actions.update(data));
+      dispatch(weatherSlice.actions.setLoad(true));
+    } catch (error: any) {
+      dispatch(weatherSlice.actions.setError(error));
+    } finally {
+      dispatch(weatherSlice.actions.setLoad(false));
+    }
   };
 
   const handleCardRemoval = async () => {
     dispatch(weatherSlice.actions.remove(weather.name));
   };
+
+  if (isLoading) {
+    return (<CircularProgress color="success" />);
+  }
   
   return(
     <Card sx={{ maxWidth: 300 }}>
