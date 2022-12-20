@@ -22,3 +22,24 @@ export type Weather = {
     icon: string, 
   }[];
 };
+
+export type hourlyWeather = {
+  [key: string]: any,
+  list: [
+    {
+      main: {
+        temp: number,
+      },
+      weather: [
+        {
+          icon: string,
+        }
+      ],
+      dt_txt: string,
+    }
+  ],
+  city: {
+    name: string,
+    country: string,
+  }
+}

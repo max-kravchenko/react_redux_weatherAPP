@@ -1,44 +1,36 @@
 import { createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { Weather } from '../types/types';
+import { hourlyWeather, Weather } from '../types/types';
 
 type currentWeather = {
   weather: Weather[],
   isLoading: boolean,
   error: string,
+  hourly: hourlyWeather,
 };
-
-// const initialState: currentWeather = {
-//   weather: [{
-//     main: {
-//       temp: 0,
-//       feels_like: 0,
-//       humidity: 0,
-//       pressure: 0,
-//       temp_max: 0,
-//       temp_min: 0,
-//     },
-//     sys: {
-//       country: '',
-//     },
-//     name: '',
-//     wind: {
-//       speed: 0,
-//     },
-//     weather: [{
-//       id: 0,
-//       main: '',
-//       description: '',
-//       icon: '',
-//     }]
-//   }],
-//   isLoading: false,
-//   error: '',
-// };
 
 const initialState: currentWeather = {
   weather: [],
   isLoading: false,
   error: '',
+  hourly: {
+    list: [
+      {
+        main: {
+          temp: 0,
+        },
+        weather: [
+          {
+            icon: '',
+          }
+        ],
+        dt_txt: '',
+      }
+    ],
+    city: {
+      name: '',
+      country: '',
+    }
+  },
 };
 
 export const weatherSlice = createSlice({
@@ -71,6 +63,9 @@ export const weatherSlice = createSlice({
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+    },
+    addHourly: (state, action: PayloadAction<hourlyWeather>) => {
+      state.hourly = action.payload;
     },
   },
 });
