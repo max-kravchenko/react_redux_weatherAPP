@@ -21,7 +21,7 @@ describe('WeatherCard', () => {
           sys: {
             country: '',
           },
-          name: '',
+          name: 'Rivne',
           wind: {
             speed: 0,
           },
@@ -39,6 +39,8 @@ describe('WeatherCard', () => {
     expect(screen.getByRole('img')).toBeInTheDocument();
   
     expect(screen.getByText(/°C/)).toBeInTheDocument();
+
+    expect(screen.getByText(/Weather in Rivne/)).toBeInTheDocument();
 
     expect(screen.getByText(/Refresh/)).toBeInTheDocument();
 

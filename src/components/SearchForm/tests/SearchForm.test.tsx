@@ -45,6 +45,3 @@ describe('SearchForm', () => {
     expect(setCity).toHaveBeenCalledTimes(5);
   });
 });
-
-
-
