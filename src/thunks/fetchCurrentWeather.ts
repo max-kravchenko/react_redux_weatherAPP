@@ -23,3 +23,22 @@ export const fetchCurrentWeather = (payload: string) => async (dispatch: AppDisp
     dispatch(weatherSlice.actions.setLoad(false));
   }
 }; 
+
+export const fetchHourlyWeather = (payload: string) => async (dispatch: AppDispatch) => {
+  try {
+    const res = await WeatherService.getHourlyWeather(payload);
+
+    const { data } = res; 
+
+    if(res) {
+      dispatch(weatherSlice.actions.addHourly(data));
+    } 
+    
+  } catch (error: any) {
+    dispatch(weatherSlice.actions.setError(error));
+  }
+  finally {
+    dispatch(weatherSlice.actions.setLoad(false));
+  }
+}; 
+
