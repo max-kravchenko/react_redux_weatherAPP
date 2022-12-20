@@ -10,7 +10,10 @@ export const CityWeatherPage = React.memo(function CityCityWeatherPage() {
 
   const { weather } = useCustomSelector(selectCurrentWeatherData);
 
-  const filteredWeather = weather.filter((city) => city.name === currentCity.split('%20').join(' '));
+  const filteredWeather = weather
+    .filter((city) => city.name === currentCity
+      .split('%20')
+      .join(' '));
   
   return (
     <Card>

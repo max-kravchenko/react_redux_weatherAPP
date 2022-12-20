@@ -6,11 +6,20 @@ export const fetchCurrentWeather = (payload: string) => async (dispatch: AppDisp
   try {
     const res = await WeatherService.getCurrentWeather(payload);
 
+    const { data } = res; 
+
     if(res) {
-      dispatch(weatherSlice.actions.add(res));
+      if (data.name === 'São Paulo') {
+        data.name = 'Sao Paulo';
+      }
+
+      dispatch(weatherSlice.actions.add(data));
     } 
     
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    dispatch(weatherSlice.actions.setError(error));
+  }
+  finally {
+    dispatch(weatherSlice.actions.setLoad(false));
   }
 }; 
