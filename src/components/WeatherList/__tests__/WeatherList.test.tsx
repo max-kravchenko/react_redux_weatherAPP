@@ -12,7 +12,7 @@ describe('WeatherList', () => {
     </Provider>)).toMatchSnapshot();
   });
 
-  it('should render the weather card', () => {
+  it('should render the weather card with info', () => {
     render(<HashRouter>
       <Provider store={store}>
         < WeatherList cities={[{main: {
@@ -40,8 +40,6 @@ describe('WeatherList', () => {
     </HashRouter>);
 
     expect(screen.getByTestId('grid')).toBeInTheDocument();
-
-    screen.debug();
   });
 });
 

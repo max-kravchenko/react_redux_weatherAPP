@@ -1,4 +1,3 @@
-import React from 'react';
 import { store } from '../../app/store';
 
 describe('weatherSlice', () => {
