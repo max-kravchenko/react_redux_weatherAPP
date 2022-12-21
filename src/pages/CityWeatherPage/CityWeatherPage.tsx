@@ -4,6 +4,9 @@ import { useCustomDispatch, useCustomSelector } from '../../hooks/store';
 import { selectCurrentWeatherData } from '../../selectors/selector';
 import { fetchHourlyWeather } from '../../thunks/fetchCurrentWeather';
 import Grid from '@mui/material/Grid';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 
 export const CityWeatherPage = React.memo(function CityCityWeatherPage() {
@@ -24,9 +27,17 @@ export const CityWeatherPage = React.memo(function CityCityWeatherPage() {
   }, []);
 
   const { list } = hourly;
-  
+
+  const navigate = useNavigate();
+
+  const handleNavigation = () => navigate(-1);
+
   return (
     <Card>
+      <Button startIcon={<ArrowBackIcon/>} onClick={handleNavigation}>
+        Back
+      </Button>
+
       <Typography variant="h3" paddingTop={4}>
         Weather in {filteredWeather[0].name} today
       </Typography>

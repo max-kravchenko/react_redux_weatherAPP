@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { Weather } from '../../types/types';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -118,9 +117,9 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
         </CardContent>
       </NavLink> 
      
-      <CardActions>
+      <Box display='flex' justifyContent='center'>
         <Box display='flex' justifyContent='center' 
-          gap={12}
+          gap={6}
         >
           <Button 
             size="small" 
@@ -137,8 +136,7 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
             Remove
           </Button>
         </Box>
-
-      </CardActions>
+      </Box>
     </Card>
   );
 });
