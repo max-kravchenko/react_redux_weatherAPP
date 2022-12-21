@@ -62,7 +62,7 @@ export const WeatherCard = React.memo(function WeatherCard({weather} : Props) {
   }
   
   return(
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ minWidth: 230 }}>
       <NavLink
         style={{ textDecoration: 'none', color: 'black'} }
         to={`../${weather.name}`}
