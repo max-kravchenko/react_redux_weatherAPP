@@ -10,5 +10,3 @@ This SPA shows weather. You can select a city and add it to the selection of cit
 - ESLint/Prettier
 - openweathermap API
 - Jest + react-testing-library
-
-
