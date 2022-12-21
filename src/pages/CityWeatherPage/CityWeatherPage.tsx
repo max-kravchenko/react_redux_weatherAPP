@@ -33,7 +33,7 @@ export const CityWeatherPage = React.memo(function CityCityWeatherPage() {
 
       <Grid container spacing={4} paddingTop={12} paddingLeft={5}>
         {list.map((item) => (
-          <Grid item key={item.main.temp * Math.random()} style={{ transform: `translateY(${-item.main.temp * 3}px)`}}>
+          <Grid item key={item.main.temp * Math.random()} style={{ transform: `translateY(${-item.main.temp * 3}px)`, display:'grid',}} justifyItems='center'>
             {Math.floor(item.main.temp)}°C
             <CardMedia
               component="img"
